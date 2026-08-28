@@ -14,6 +14,11 @@ dist-ssr
 .env
 .env.*
 !.env.example
+server/generated
+/server/.agents/
+/server/.claude/
+/server/.windsurf/
+/server/skills-lock.json
 
 # Editor directories and files
 .vscode/*

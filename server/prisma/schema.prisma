@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum EmployeeStatus {
+  Active
+  Inactive
+}
+
+model Department {
+  id Int @id @default(autoincrement())
+  name String @unique
+  employees Employee[]
+}
+
+model Employee {
+  id Int @id @default(autoincrement())
+  firstName String
+  lastName String
+  email String @unique
+  phoneNumber String
+  position String
+  startDate DateTime
+  salary Decimal @db.Decimal(10, 2)
+  status EmployeeStatus
+  departmentId Int
+  department Department @relation(fields: [departmentId], references: [id])
+}
