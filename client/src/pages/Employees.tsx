@@ -23,7 +23,7 @@ const Employees = () => {
 
 
   return (
-    <div>
+    <div className="grid grid-cols-1 gap-3 p-2 w-full">
       {employees.map((employee) => (
         <div key={employee.id}>
           <CompanyEmployee employee={employee} />
