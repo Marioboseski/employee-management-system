@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getEmployeeById } from "../services/employeesApi";
 import { useParams } from "react-router-dom";
 import type { Employee } from "../types/employees";
-import CompanyEmployee from "../components/Employee";
+import EmployeeDetails from "../components/EmployeeDetails";
 
 const EmployeeProfile = () => {
 
@@ -24,7 +24,7 @@ const EmployeeProfile = () => {
   
   return (
     <div>
-      <CompanyEmployee employee={employee} />      
+      <EmployeeDetails employee={employee} />      
     </div>
   );
 }
