@@ -20,3 +20,28 @@ export const getEmployees = async (req: Request, res: Response) => {
     console.log(error);
   }
 }
+
+ export const getEmployeeById = async (req: Request, res: Response) => {
+  try {
+
+    const {id} = req.params;
+
+    const employee = await prisma.employee.findUnique({
+      where: {
+        id: Number(id)
+      },
+      include: {
+        department: {
+          select: {
+            name: true,
+          }
+        }
+      }
+    });
+
+    return res.status(200).json(employee);
+
+  } catch (error) {
+    console.log(error);
+  }
+}

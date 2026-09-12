@@ -9,3 +9,13 @@ export const getEmployees = async () => {
 
   return res.json();
 }
+
+export const getEmployeeById = async (id: number) => {
+  const res = await fetch(`${API_URL}/api/employees/${id}`);
+
+  if(!res.ok) {
+    throw new Error("Failed to fetch employee")
+  }
+
+  return res.json();
+}
