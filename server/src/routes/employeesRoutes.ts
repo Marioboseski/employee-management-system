@@ -1,11 +1,16 @@
 import { Router } from "express";
-import { getEmployees, getEmployeeById } from "../controllers/employeesController.js";
-import { validateParams } from "../middleware/validate.js";
-import { employeeIdSchema } from "../schemas/employeeSchema.js";
+import {
+getEmployees,
+getEmployeeById,
+createEmployee
+} from "../controllers/employeesController.js";
+import { validateParams, validateBody } from "../middleware/validate.js";
+import { employeeIdSchema, createEmployeeSchema } from "../schemas/employeeSchema.js";
 
 const router = Router();
 
 router.get("/", getEmployees);
 router.get("/:id", validateParams(employeeIdSchema), getEmployeeById);
+router.post("/", validateBody(createEmployeeSchema), createEmployee);
 
 export default router;

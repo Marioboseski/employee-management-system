@@ -19,3 +19,20 @@ export const validateParams = <T extends z.ZodType> (schema: T) => {
     next();
   };
 };
+
+export const validateBody = <T extends z.ZodType> (schema: T) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json({
+        message: "Validation failed",
+        errors: result.error.issues,
+      });
+    }
+
+    req.body = result.data;
+    
+    next();
+  }
+}

@@ -46,3 +46,33 @@ export const getEmployeeById = async (req: Request, res: Response) => {
 
   return res.status(200).json(employee);
 }
+
+export const createEmployee = async (req: Request, res: Response) => {
+  const { firstName, lastName, email,
+    phoneNumber, position, startDate,
+    salary, status, departmentId } = req.body;
+
+  const employee = await prisma.employee.create({
+    data: {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      position,
+      startDate,
+      salary,
+      status,
+      department: {
+        connect: {
+          id: departmentId,
+        }
+      },
+    }
+  });
+
+  return res.status(201).json({
+    message: "Employee created successfully",
+    employee
+  })
+
+}
