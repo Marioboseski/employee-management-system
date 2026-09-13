@@ -21,27 +21,28 @@ export const getEmployees = async (req: Request, res: Response) => {
   }
 }
 
- export const getEmployeeById = async (req: Request, res: Response) => {
-  try {
+export const getEmployeeById = async (req: Request, res: Response) => {
 
-    const {id} = req.params;
+  const { id } = req.params;
 
-    const employee = await prisma.employee.findUnique({
-      where: {
-        id: Number(id)
-      },
-      include: {
-        department: {
-          select: {
-            name: true,
-          }
+  const employee = await prisma.employee.findUnique({
+    where: {
+      id: Number(id)
+    },
+    include: {
+      department: {
+        select: {
+          name: true,
         }
       }
+    }
+  });
+
+  if (!employee) {
+    return res.status(404).json({
+      message: "Employee not found",
     });
-
-    return res.status(200).json(employee);
-
-  } catch (error) {
-    console.log(error);
   }
+
+  return res.status(200).json(employee);
 }
