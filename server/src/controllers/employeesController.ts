@@ -32,6 +32,7 @@ export const getEmployeeById = async (req: Request, res: Response) => {
     include: {
       department: {
         select: {
+          id: true,
           name: true,
         }
       }
@@ -74,5 +75,33 @@ export const createEmployee = async (req: Request, res: Response) => {
     message: "Employee created successfully",
     employee
   })
+}
 
+export const updateEmployee = async (req: Request, res: Response) => {
+  const { firstName, lastName, email,
+    phoneNumber, position, startDate,
+    salary, status, departmentId } = req.body;
+
+  const { id } = req.params;
+
+  const parsedStartDate = new Date(`${startDate}T00:00:00.000Z`)
+
+  const employee = await prisma.employee.update({
+    where: {
+      id: Number(id),
+    },
+    data: {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      position,
+      startDate: parsedStartDate,
+      salary,
+      status,
+      departmentId,
+    }
+  })
+
+  return res.status(200).json(employee);
 }

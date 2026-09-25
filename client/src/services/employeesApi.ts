@@ -37,3 +37,21 @@ export const createEmployee = async (employee: CreateEmployeeRequest) => {
 
   return res.json();
 }
+
+export const updateEmployee = async (id: number, employee: CreateEmployeeRequest) => {
+  const res = await fetch(`${API_URL}/api/employees/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type" : "application/json",
+    },
+    body: JSON.stringify(employee)
+  });
+
+  const data = await res.json();
+
+  if(!res.ok) {
+    throw new Error(data.message || "Failed to update employee");
+  }
+
+  return data;
+}

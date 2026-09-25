@@ -9,6 +9,7 @@ export type Employee = {
   salary: number,
   status: string
   department: {
+    id: number,
     name: string,
   }
 }
